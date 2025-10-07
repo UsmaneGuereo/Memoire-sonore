@@ -13,4 +13,4 @@ graph TB
     A[Sources Audio<br>Archives/Contemporain] --> B(Whisper<br>Transcription)
     B --> C[Omeka S<br>Gestion métadonnées]
     F[ Utilisateur Final] --> C
-    E --> G[ Réponses ]
+    C --> G[ Réponses ]
