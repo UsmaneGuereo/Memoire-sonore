@@ -7,7 +7,7 @@
 
 
 ## Technologies utilises
-**HTML**
+**HTML**<br/>
 **CSS**
 **JAVASCRIPT**
 **TYPESCRYPT**
