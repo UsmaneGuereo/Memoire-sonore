@@ -16,7 +16,7 @@
 **REST API**<br/>
 **JSON/XML**<br/>
 **GIT/GITHUB**<br/>
-**IA/NPL**
+
 
 ## Architecture
 
