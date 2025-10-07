@@ -14,4 +14,4 @@ graph TB
     B --> C[Omeka S<br>Gestion métadonnées]
     C --> D[Plateforme Web]
     F[ Utilisateur Final] --> D
-    C --> G[ Réponses ]
+    D --> G[ Réponses ]
