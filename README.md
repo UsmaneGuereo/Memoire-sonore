@@ -15,4 +15,4 @@ graph TB
     C --> D[AnythingLLM<br>Interface]
     D --> E[Ollama<br>LLM Local]
     F[ Utilisateur Final] --> E
-    E --> G[ Reponse ]
+    E --> G[ Réponses ]
