@@ -14,4 +14,5 @@ graph TB
     B --> C[Omeka S<br>Gestion métadonnées]
     C --> D[AnythingLLM<br>Interface]
     D --> E[Ollama<br>LLM Local]
-    E --> F[ Utilisateur Final]
+    F[ Utilisateur Final] --> E
+    E --> G[ Reponse ]
