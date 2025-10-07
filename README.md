@@ -8,14 +8,14 @@
 
 ## Technologies utilises
 **HTML**<br/>
-**CSS**
-**JAVASCRIPT**
-**TYPESCRYPT**
-**EXPRESSJS/FASTAPI/DJANGO**
-**MYSQL**
-**REST API**
-**JSON/XML**
-**GIT/GITHUB**
+**CSS**<br/>
+**JAVASCRIPT**<br/>
+**TYPESCRYPT**<br/>
+**EXPRESSJS/FASTAPI/DJANGO**<br/>
+**MYSQL**<br/>
+**REST API**<br/>
+**JSON/XML**<br/>
+**GIT/GITHUB**<br/>
 **IA/NPL**
 
 ## Architecture
