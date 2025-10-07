@@ -12,7 +12,5 @@
 graph TB
     A[Sources Audio<br>Archives/Contemporain] --> B(Whisper<br>Transcription)
     B --> C[Omeka S<br>Gestion métadonnées]
-    C --> D[AnythingLLM<br>Interface]
-    D --> E[Ollama<br>LLM Local]
-    F[ Utilisateur Final] --> E
+    F[ Utilisateur Final] --> C
     E --> G[ Réponses ]
