@@ -30,59 +30,59 @@ erDiagram
         string role
     }
 
-TEMOIGNAGE {
-    int id_temoignage PK "PK"
-    string titre
-    string description
-    date date_enregistrement
-    string lieu
-    int id_utilisateur FK "FK"
-}
+    TEMOIGNAGE {
+        int id_temoignage PK "PK"
+        string titre
+        string description
+        date date_enregistrement
+        string lieu
+        int id_utilisateur FK "FK"
+    }
 
-AUDIO {
-    int id_audio PK "PK"
-    string chemin_fichier
-    string format
-    float duree
-    boolean est_transcrit
-    int id_temoignage FK "FK"
-}
+    AUDIO {
+        int id_audio PK "PK"
+        string chemin_fichier
+        string format
+        float duree
+        boolean est_transcrit
+        int id_temoignage FK "FK"
+    }
 
-TRANSCRIPTION {
-    int id_transcription PK "PK"
-    text contenu
-    string langue
-    int id_audio FK "FK"
-}
+    TRANSCRIPTION {
+        int id_transcription PK "PK"
+        text contenu
+        string langue
+        int id_audio FK "FK"
+    }
 
-METADONNEE {
-    int id_meta PK "PK"
-    string cle
-    string valeur
-    int id_temoignage FK "FK"
-}
+    METADONNEE {
+        int id_meta PK "PK"
+        string cle
+        string valeur
+        int id_temoignage FK "FK"
+    }
 
-QUESTION {
-    int id_question PK "PK"
-    string texte_question
-    int id_utilisateur FK "FK"
-    int id_transcription FK "FK"
-}
+    QUESTION {
+        int id_question PK "PK"
+        string texte_question
+        int id_utilisateur FK "FK"
+        int id_transcription FK "FK"
+    }
+    
+    REPONSE {
+        int id_reponse PK "PK"
+        text contenu
+        int id_question FK "FK"
+    }
 
-REPONSE {
-    int id_reponse PK "PK"
-    text contenu
-    int id_question FK "FK"
-}
-
-%% Relations
-UTILISATEUR ||--o{ TEMOIGNAGE : "ajoute"
-UTILISATEUR ||--o{ QUESTION : "pose"
-TEMOIGNAGE ||--|| AUDIO : "contient"
-AUDIO ||--o| TRANSCRIPTION : "est_transcrit_en"
-TEMOIGNAGE ||--o{ METADONNEE : "décrit_par"
-QUESTION }o--|| TRANSCRIPTION : "porte_sur"
-QUESTION ||--o| REPONSE : "reçoit"
+    %% Relations
+    UTILISATEUR ||--o{ TEMOIGNAGE : "ajoute"
+    UTILISATEUR ||--o{ QUESTION : "pose"
+    TEMOIGNAGE ||--|| AUDIO : "contient"
+    AUDIO ||--o| TRANSCRIPTION : "est_transcrit_en"
+    TEMOIGNAGE ||--o{ METADONNEE : "décrit_par"
+    QUESTION }o--|| TRANSCRIPTION : "porte_sur"
+    QUESTION ||--o| REPONSE : "reçoit"
 
 
 
