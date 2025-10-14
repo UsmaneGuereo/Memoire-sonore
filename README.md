@@ -17,13 +17,20 @@
 **JSON/XML**<br/>
 **GIT/GITHUB**<br/>
 
-## DIagramme Entité-Relation
+## Architecture
 
-
-
-# Système de Gestion de Témoignages Audio
+```mermaid
+graph TB
+    A[Sources Audio<br>Archives/Contemporain] --> B(Whisper<br>Transcription)
+    B --> C[Omeka S<br>Gestion métadonnées]
+    C --> D[Plateforme Web]
+    F[ Utilisateur Final] --> D
+    D --> G[ Réponses ]
+```
 
 ## Diagramme de Base de Données
+
+Voici le diagramme entité-relation de notre base de données :
 
 ```mermaid
 erDiagram
@@ -92,14 +99,3 @@ erDiagram
     QUESTION }o--|| TRANSCRIPTION : "porte_sur"
     QUESTION ||--o| REPONSE : "reçoit"
 
-
-
-## Architecture
-
-```mermaid
-graph TB
-    A[Sources Audio<br>Archives/Contemporain] --> B(Whisper<br>Transcription)
-    B --> C[Omeka S<br>Gestion métadonnées]
-    C --> D[Plateforme Web]
-    F[ Utilisateur Final] --> D
-    D --> G[ Réponses ]
