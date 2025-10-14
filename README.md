@@ -19,6 +19,12 @@
 
 ## DIagramme Entité-Relation
 
+
+
+# Système de Gestion de Témoignages Audio
+
+## Diagramme de Base de Données
+
 ```mermaid
 erDiagram
     UTILISATEUR {
@@ -52,6 +58,7 @@ erDiagram
         int id_transcription PK "PK"
         text contenu
         string langue
+        date date_transcription
         int id_audio FK "FK"
     }
 
@@ -65,17 +72,18 @@ erDiagram
     QUESTION {
         int id_question PK "PK"
         string texte_question
+        date date_question
         int id_utilisateur FK "FK"
         int id_transcription FK "FK"
     }
-    
+
     REPONSE {
         int id_reponse PK "PK"
         text contenu
+        date date_reponse
         int id_question FK "FK"
     }
 
-    %% Relations
     UTILISATEUR ||--o{ TEMOIGNAGE : "ajoute"
     UTILISATEUR ||--o{ QUESTION : "pose"
     TEMOIGNAGE ||--|| AUDIO : "contient"
@@ -83,9 +91,6 @@ erDiagram
     TEMOIGNAGE ||--o{ METADONNEE : "décrit_par"
     QUESTION }o--|| TRANSCRIPTION : "porte_sur"
     QUESTION ||--o| REPONSE : "reçoit"
-
-
-
 
 
 
