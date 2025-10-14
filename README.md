@@ -19,7 +19,7 @@
 
 ## DIagramme Entité-Relation
 
-
+```mermaid
 erDiagram
     UTILISATEUR {
         int id_utilisateur PK "PK"
