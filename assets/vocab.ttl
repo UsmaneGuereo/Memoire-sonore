@@ -1,0 +1,87 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix o: <http://omeka.org/s/vocabs/o#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix jdc: <https://memoiresonore.univ-paris8.fr/onto/jdc#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#>.
+
+<https://memoiresonore.univ-paris8.fr/onto/jdc#> a owl:Ontology ;
+    dcterms:title "Memoire sonore" .
+
+jdc:Utilisateur a rdfs:Class ;
+rdfs:label "Utilisateur" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Temoignage a rdfs:Class ;
+rdfs:label "Temoignage" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Audio a rdfs:Class ;
+rdfs:label "Audio" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Metadonnees a rdfs:Class ;
+rdfs:label "Metadonnees" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Question a rdfs:Class ;
+rdfs:label "Question" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Transcription a rdfs:Class ;
+rdfs:label "Transcription" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:Reponse a rdfs:Class ;
+rdfs:label "Reponse" ;
+rdfs:domain o:Resource ;
+vs:term_status "experimental" .
+
+jdc:ajoute a rdf:Property ;
+    rdfs:label "ajoute un temoignage" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:contient a rdf:Property ;
+    rdfs:label "contient un audio" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:decrit_par a rdf:Property ;
+    rdfs:label "decrit par des metadonnees" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:est_transcrit a rdf:Property ;
+    rdfs:label "est transcrit en" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:pose a rdf:Property ;
+    rdfs:label "pose une question" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:porte_sur a rdf:Property ;
+    rdfs:label "porte sur une transcription" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:recoit a rdf:Property ;
+    rdfs:label "recoit une reponse" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:role a rdf:Property ;
+    rdfs:label "role de l'utilisateur" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
