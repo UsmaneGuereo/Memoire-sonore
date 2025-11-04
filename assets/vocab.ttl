@@ -12,76 +12,221 @@
     dcterms:title "Memoire sonore" .
 
 jdc:Utilisateur a rdfs:Class ;
-rdfs:label "Utilisateur" ;
+rdfs:label "Utilisateur"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Temoignage a rdfs:Class ;
-rdfs:label "Temoignage" ;
+rdfs:label "Temoignage"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Audio a rdfs:Class ;
-rdfs:label "Audio" ;
+rdfs:label "Audio"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Metadonnees a rdfs:Class ;
-rdfs:label "Metadonnees" ;
+rdfs:label "Métadonnées"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Question a rdfs:Class ;
-rdfs:label "Question" ;
+rdfs:label "Question"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Transcription a rdfs:Class ;
-rdfs:label "Transcription" ;
+rdfs:label "Transcription"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
 jdc:Reponse a rdfs:Class ;
-rdfs:label "Reponse" ;
+rdfs:label "Réponse"@fr ;
 rdfs:domain o:Resource ;
 vs:term_status "experimental" .
 
-jdc:ajoute a rdf:Property ;
-    rdfs:label "ajoute un temoignage" ;
+jdc:id_utilisateur a rdf:Property ;
+    rdfs:label "id d'un utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .
 
-jdc:contient a rdf:Property ;
-    rdfs:label "contient un audio" ;
+jdc:nom a rdf:Property ;
+    rdfs:label "nom de l'utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .
 
-jdc:decrit_par a rdf:Property ;
-    rdfs:label "decrit par des metadonnees" ;
+jdc:prenom a rdf:Property ;
+    rdfs:label "prenom de l'utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .
 
-jdc:est_transcrit a rdf:Property ;
-    rdfs:label "est transcrit en" ;
+jdc:email a rdf:Property ;
+    rdfs:label "email de l'utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .
 
-jdc:pose a rdf:Property ;
-    rdfs:label "pose une question" ;
-    rdfs:domain o:Resource ;
-    vs:term_status "experimental" .
-
-jdc:porte_sur a rdf:Property ;
-    rdfs:label "porte sur une transcription" ;
-    rdfs:domain o:Resource ;
-    vs:term_status "experimental" .
-
-jdc:recoit a rdf:Property ;
-    rdfs:label "recoit une reponse" ;
+jdc:mot_de_passe a rdf:Property ;
+    rdfs:label "password de l'utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .
 
 jdc:role a rdf:Property ;
-    rdfs:label "role de l'utilisateur" ;
+    rdfs:label "role de l'utilisateur"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_temoignage a rdf:Property ;
+    rdfs:label "id d'un temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:titre a rdf:Property ;
+    rdfs:label "titre d'un temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:description a rdf:Property ;
+    rdfs:label "description d'un temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:date_enregistrement a rdf:Property ;
+    rdfs:label "date d'enregistrement d'un temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:lieu a rdf:Property ;
+    rdfs:label "lieu du temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_audio a rdf:Property ;
+    rdfs:label "id d'un audio"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:chemin_fichier a rdf:Property ;
+    rdfs:label "chemin d'un fichier audio"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:format a rdf:Property ;
+    rdfs:label "format d'un fichier audio"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:duree a rdf:Property ;
+    rdfs:label "duree d'un fichier audio"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:est_transcrit a rdf:Property ;
+    rdfs:label "verifier si le fichier audio est transcrit ou pas"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_meta a rdf:Property ;
+    rdfs:label "id d'un metadonnée"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:cle a rdf:Property ;
+    rdfs:label "cle d'un metadonnée"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:valeur a rdf:Property ;
+    rdfs:label "valeur d'un metadonnée"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_transcription a rdf:Property ;
+    rdfs:label "id de la transcription"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:contenu a rdf:Property ;
+    rdfs:label "contenu de la transcription"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:langue a rdf:Property ;
+    rdfs:label "langue de la transcription"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:date_transcription a rdf:Property ;
+    rdfs:label "date de la transcription"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_question a rdf:Property ;
+    rdfs:label "id de la question"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:texte_question a rdf:Property ;
+    rdfs:label "texte de la question"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:date_question a rdf:Property ;
+    rdfs:label "date de la question"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:id_reponse a rdf:Property ;
+    rdfs:label "id de la reponse"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:contenu_response a rdf:Property ;
+    rdfs:label "contenu de la reponse"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:date_reponse a rdf:Property ;
+    rdfs:label "date de la response"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:ajoute a rdf:Property ;
+    rdfs:label "ajoute un temoignage"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:contient a rdf:Property ;
+    rdfs:label "contient un audio"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:decrit_par a rdf:Property ;
+    rdfs:label "décrit par des métadonnées"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:est_transcrit a rdf:Property ;
+    rdfs:label "est transcrit en"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:pose a rdf:Property ;
+    rdfs:label "poser une question"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:porte_sur a rdf:Property ;
+    rdfs:label "porte sur une transcription"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:recoit a rdf:Property ;
+    rdfs:label "reçoit une reponse"@fr ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+jdc:role a rdf:Property ;
+    rdfs:label "role de l'utilisateur"@fr ;
     rdfs:domain o:Resource ;
     vs:term_status "experimental" .

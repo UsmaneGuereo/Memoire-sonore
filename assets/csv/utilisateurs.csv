@@ -1,0 +1,4 @@
+id_utilisateur,nom,prenom,email,role
+1,Dupont,Jean,jean.dupont@email.com,admin
+2,Martin,Marie,marie.martin@email.com,contributeur
+3,Bernard,Pierre,pierre.bernard@email.com,visiteur

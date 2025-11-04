@@ -1,0 +1,4 @@
+id_audio,chemin_fichier,format,duree,est_transcrit,id_temoignage
+1,/audio/temoignage1.mp3,mp3,1250.5,True,1
+2,/audio/temoignage2.wav,wav,980.2,True,2
+3,/audio/temoignage3.mp3,mp3,1560.8,False,3
