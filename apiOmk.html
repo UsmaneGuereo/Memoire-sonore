@@ -48,7 +48,7 @@
                                         <option value="Éditeur">Historien</option>
                                     </select>
                                 </div>
-                                <button type="submit" onclick="creerUtilisateur()" class="btn btn-outline-dark w-100">Ajouter l'utilisateur</button>
+                                <button type="submit"  class="btn btn-outline-dark w-100">Ajouter l'utilisateur</button>
                             </form>
                         </div>
                     </div>
@@ -91,16 +91,13 @@
         import {auth} from './modules/auth.js';
         import {pa} from './modules/authParams.js';
 
-        let a = new auth(pa);
-        // a.getUser(u=>{
-        //     console.log("Utilisateur connecté :", u);
-        // })
+       
         let url = "http://localhost/omk_THyp_25-26_clone/api/items";
         d3.json(url).then(data=>{
-            console.log(data);
 
             const userList = d3.select('#userList');
             if(data.length > 0){
+                console.log(data);
                 data.forEach(user => {
                     let prenom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'][0]['@value'] : '';
                     let nom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'][0]['@value'] : '';
@@ -121,30 +118,65 @@
                     `<td colspan="4" class="text-center text-muted">Aucun utilisateur ajouté</td>`
                 );
             }
-            // let ligne = 
-            // `<tr>
-            //     <td colspan="5" class="text-center text-muted">Aucun utilisateur ajouté</td>
-            // </tr>`;
-            // console.log(data[0]['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'][0]['@value']);
-            // let prenom = data[0]['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'][0]['@value'];
-            // let nom = data[0]['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'][0]['@value'];
-            // let email = data[0]['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'][0]['@value'];
+           
         })
 
+        const form = d3.select('#userForm');
+        form.on('submit', function(event){
+            event.preventDefault();
+            creerUtilisateur();
+        });
+
         function creerUtilisateur() {
+            const api_url = "http://localhost/omk_THyp_25-26_clone/api/items";
+            const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8"; // Vérifiez bien qu'il n'y a pas de '=' en trop à la fin
+            const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
+            // let url = 'http://localhost/omk_THyp_25-26_clone/api/items?key_identity=NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8=&key_credential=6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1';
             const prenom = d3.select('#prenom').property('value');
             const nom = d3.select('#nom').property('value');
             const email = d3.select('#email').property('value');
             const role = d3.select('#role').property('value');  
-            let data = {};
-            data['o:resource_class']="dctype:Utilisateur";
-            data['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] = [{'@value': prenom}];
-            data['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] = [{'@value': nom}];
-            data['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] = [{'@value': email}];
-            data['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'] = [{'@value': role}];
-            a.omk.createItem(data,i=>{
-                d3.select('#resultCrea').text(JSON.stringify(i));
-            });
+            const id  = Math.floor(Math.random() * 100); // Générer un ID aléatoire pour l'exemple
+            console.log('Création de l\'utilisateur:', id);
+            // let data = {};
+            // data['type']='http://memoiresonore.univ-paris8.fr/onto/jdc#Utilisateur';
+            // data['o:resource_class']='jdc:Utilisateur';
+            // data['http://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'] = [{'@value': id}];
+            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] = [{'@value': prenom}];
+            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] = [{'@value': nom}];
+            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] = [{'@value': email}];
+            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'] = [{'@value': role}];
+            
+            const data = {
+                "o:resource_class": { "o:id": 106 },        // jdc:Utilisateur
+                "o:resource_template": { "o:id": 2 },        // Ton template personnalisé
+                "o:is_public": true,
+
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:nom": [
+                    { "@value": nom, "type": "literal" }
+                ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom": [
+                    { "@value": prenom, "type": "literal" }
+                ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:email": [
+                    { "@value": email, "type": "literal" }
+                ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:role": [
+                    { "@value": role, "type": "literal" }
+                ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur": [
+                    { "@value": id, "type": "literal" }
+                ]
+            };
+
+            fetch(`${api_url}?key_identity=${identity}&key_credential=${credential}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            
         }
 
         // function abscent(e,d){
