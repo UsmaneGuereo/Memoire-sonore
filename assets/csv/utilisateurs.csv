@@ -2,3 +2,10 @@ id_utilisateur,nom,prenom,email,role
 1,Dupont,Jean,jean.dupont@email.com,admin
 2,Martin,Marie,marie.martin@email.com,contributeur
 3,Bernard,Pierre,pierre.bernard@email.com,visiteur
+4,Lambert,Luc,luc.lambert@email.com,visiteur
+5,Roche,Sophie,sophie.roche@email.com,contributeur
+6,Moreau,Nadia,nadia.moreau@email.com,admin
+7,Fournier,Paul,paul.fournier@email.com,visiteur
+8,Girard,Emma,emma.girard@email.com,contributeur
+9,Lemoine,Louis,louis.lemoine@email.com,visiteur
+10,Barbier,Julie,julie.barbier@email.com,admin

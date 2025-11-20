@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -89,11 +88,10 @@
 
     <script type="module">
         import {auth} from './modules/auth.js';
-        import {pa} from './modules/authParams.js';
+        import {pa} from './modules/authParams.js'
 
-       
         let url = "http://localhost/omk_THyp_25-26_clone/api/items";
-        d3.json(url).then(data=>{
+        d3.json(url).then(data => {
 
             const userList = d3.select('#userList');
             if(data.length > 0){
@@ -127,46 +125,42 @@
             creerUtilisateur();
         });
 
-        function creerUtilisateur() {
+        async function creerUtilisateur() {
             const api_url = "http://localhost/omk_THyp_25-26_clone/api/items";
-            const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8"; // Vérifiez bien qu'il n'y a pas de '=' en trop à la fin
+            const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8"; 
             const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
-            // let url = 'http://localhost/omk_THyp_25-26_clone/api/items?key_identity=NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8=&key_credential=6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1';
             const prenom = d3.select('#prenom').property('value');
             const nom = d3.select('#nom').property('value');
             const email = d3.select('#email').property('value');
             const role = d3.select('#role').property('value');  
-            const id  = Math.floor(Math.random() * 100); // Générer un ID aléatoire pour l'exemple
-            console.log('Création de l\'utilisateur:', id);
-            // let data = {};
-            // data['type']='http://memoiresonore.univ-paris8.fr/onto/jdc#Utilisateur';
-            // data['o:resource_class']='jdc:Utilisateur';
-            // data['http://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'] = [{'@value': id}];
-            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] = [{'@value': prenom}];
-            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] = [{'@value': nom}];
-            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] = [{'@value': email}];
-            // data['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'] = [{'@value': role}];
+            const id  = Math.floor(Math.random() * 100); 
+
+            const temp = await d3.json("http://localhost/omk_THyp_25-26_clone/api/resource_templates")
+                .then(data => {
+                    return data.find(elt => elt['o:label'] === "Utilisateur"); // Trouver le ressource template "Utilisateur"
+                }
+            );
+
+            const ressource_template_id = temp['o:id'];// ressource template id
+            const ressource_class_id = temp['o:resource_class']['o:id'];// resource class id
+            const id_property = temp['o:resource_template_property'][0]['o:property']['o:id'];// ID property
+            const nom_property = temp['o:resource_template_property'][1]['o:property']['o:id'];// NOM property
+            const prenom_property = temp['o:resource_template_property'][2]['o:property']['o:id'];// PRENOM property
+            const email_property = temp['o:resource_template_property'][3]['o:property']['o:id'];// EMAIL property
+            const role_property = temp['o:resource_template_property'][5]['o:property']['o:id'];// ROLE property
+
+                
             
             const data = {
-                "o:resource_class": { "o:id": 106 },        // jdc:Utilisateur
-                "o:resource_template": { "o:id": 2 },        // Ton template personnalisé
-                "o:is_public": true,
-
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:nom": [
-                    { "@value": nom, "type": "literal" }
-                ],
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom": [
-                    { "@value": prenom, "type": "literal" }
-                ],
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:email": [
-                    { "@value": email, "type": "literal" }
-                ],
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:role": [
-                    { "@value": role, "type": "literal" }
-                ],
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur": [
-                    { "@value": id, "type": "literal" }
-                ]
+                "o:resource_class": { "o:id": ressource_class_id }, // ID récupéré de votre exemple
+                "o:resource_template": { "o:id": ressource_template_id }, // ID récupéré de votre exemple
+                "o:title": prenom + ' ' + nom,
+                "o:Item": "https://memoiresonore.univ-paris8.fr/onto/jdc#:Utilisateur",
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:nom": [ { "type": "literal", property_id: nom_property, "@value": nom } ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom": [ { "type": "literal", property_id: prenom_property, "@value": prenom } ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:email": [ { "type": "literal", property_id: email_property, "@value": email } ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:role": [ { "type": "literal", property_id: role_property, "@value": role } ],
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur": [ { "type": "literal", property_id: id_property, "@value": id } ]
             };
 
             fetch(`${api_url}?key_identity=${identity}&key_credential=${credential}`, {
@@ -176,7 +170,8 @@
                 },
                 body: JSON.stringify(data)
             })
-            
+        
+                        
         }
 
         // function abscent(e,d){
