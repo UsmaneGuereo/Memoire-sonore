@@ -15,8 +15,6 @@
     </header>
     <main>
         <div class="container py-1">
-            
-
             <div class="row">
                 <!-- Formulaire d'ajout d'utilisateur -->
                 <div class="col-md-4 mb-4">
@@ -44,10 +42,10 @@
                                         <option value="" selected disabled>Sélectionnez un rôle</option>
                                         <option value="Administrateur">Administrateur</option>
                                         <option value="Utilisateur">Utilisateur</option>
-                                        <option value="Éditeur">Historien</option>
+                                        <option value="Historien">Historien</option>
                                     </select>
                                 </div>
-                                <button type="submit"  class="btn btn-outline-dark w-100">Ajouter l'utilisateur</button>
+                                <button type="submit" class="btn btn-outline-dark w-100">Ajouter l'utilisateur</button>
                             </form>
                         </div>
                     </div>
@@ -68,11 +66,11 @@
                                             <th>Nom</th>
                                             <th>Email</th>
                                             <th>Rôle</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="userList">
                                         <!-- Les utilisateurs seront ajoutés ici dynamiquement -->
-                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -82,58 +80,93 @@
             </div>
         </div>
     </main>
-    <footer>
-        <p>&copy; 2025 Présences THYP</p>
+    <footer class="d-flex align-items-center justify-content-center py-3">
+        <p class="mb-0">&copy; 2025 Présences THYP</p>
     </footer>
 
     <script type="module">
         import {auth} from './modules/auth.js';
         import {pa} from './modules/authParams.js'
 
-        let url = "http://localhost/omk_THyp_25-26_clone/api/items";
-        d3.json(url).then(data => {
-
-            const userList = d3.select('#userList');
-            if(data.length > 0){
-                console.log(data);
-                data.forEach(user => {
-                    let prenom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'][0]['@value'] : '';
-                    let nom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'][0]['@value'] : '';
-                    let email = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'][0]['@value'] : '';
-                    let role = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'][0]['@value'] : '';
-
-                    let ligne = 
-                    `<tr>
-                        <td>${prenom}</td>
-                        <td>${nom}</td>
-                        <td>${email}</td>
-                        <td>${role}</td>
-                    </tr>`;
-                    userList.append('tr').html(ligne);
-                });
-            } else {
-                userList.append('tr').html(
-                    `<td colspan="4" class="text-center text-muted">Aucun utilisateur ajouté</td>`
-                );
-            }
-           
-        })
-
+        const api_url = "http://localhost/omk_THyp_25-26_clone/api/items";
+        const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8"; 
+        const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
+        const userList = d3.select('#userList');
         const form = d3.select('#userForm');
+
+        function chargerTableauUtiisateurs(url, userList) {
+            d3.json(url).then(data => {
+            
+                if(data.length > 0){
+                    
+                    data.forEach(user => {
+                        let prenom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'][0]['@value'] : '';
+                        let nom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'][0]['@value'] : '';
+                        let email = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'][0]['@value'] : '';
+                        let role = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:role'][0]['@value'] : '';
+                        let id_user = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'][0]['@value'] : '';
+
+                        let ligne = 
+                        `<tr>
+                            <td>${prenom}</td>
+                            <td>${nom}</td>
+                            <td>${email}</td>
+                            <td>${role}</td>
+                            <td><button type="submit" class="btn btn-outline-danger btn-sm btn-supprimer" data-id="${id_user}">Supprimer</button></td>
+                        </tr>`;
+                        userList.append('tr').html(ligne);
+                        
+                    });
+                    
+                    d3.selectAll('.btn-supprimer').on('click', function(event) {
+                        event.preventDefault();
+                        const data_id = this.getAttribute('data-id');
+                        supprimerItem(data_id);
+                    });
+
+                } else {
+                    userList.append('tr').html(
+                        `<td colspan="4" class="text-center text-muted">Aucun utilisateur ajouté</td>`
+                    );
+                }
+            })
+        }
+
+        chargerTableauUtiisateurs(api_url, userList);
+
+        function supprimerItem(id_user) {
+            d3.json(`http://localhost/omk_THyp_25-26_clone/api/items`).then(data => {
+                const item = data.find(elt => {
+                    const item_id_user = elt['https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'] ? elt['https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur'][0]['@value'] : '';
+                    return item_id_user === id_user;
+                });
+                if (item) {
+                    const id_item = item['o:id'];
+                    fetch(`http://localhost/omk_THyp_25-26_clone/api/items/${id_item}?key_identity=${identity}&key_credential=${credential}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).finally(() => {
+                        d3.selectAll('#userList tr').remove();
+                        chargerTableauUtiisateurs(api_url, userList);
+                    });
+                }
+            });
+        }
+
         form.on('submit', function(event){
             event.preventDefault();
             creerUtilisateur();
+            form.node().reset();
         });
 
         async function creerUtilisateur() {
-            const api_url = "http://localhost/omk_THyp_25-26_clone/api/items";
-            const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8"; 
-            const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
             const prenom = d3.select('#prenom').property('value');
             const nom = d3.select('#nom').property('value');
             const email = d3.select('#email').property('value');
             const role = d3.select('#role').property('value');  
-            const id  = Math.floor(Math.random() * 100); 
+            const id_user  = Math.floor(Math.random() * 100).toString(); // Générer un ID utilisateur aléatoire entre 0 et 99
 
             const temp = await d3.json("http://localhost/omk_THyp_25-26_clone/api/resource_templates")
                 .then(data => {
@@ -149,18 +182,16 @@
             const email_property = temp['o:resource_template_property'][3]['o:property']['o:id'];// EMAIL property
             const role_property = temp['o:resource_template_property'][5]['o:property']['o:id'];// ROLE property
 
-                
-            
             const data = {
-                "o:resource_class": { "o:id": ressource_class_id }, // ID récupéré de votre exemple
-                "o:resource_template": { "o:id": ressource_template_id }, // ID récupéré de votre exemple
+                "o:resource_class": { "o:id": ressource_class_id }, // id de la resource class
+                "o:resource_template": { "o:id": ressource_template_id }, // id du ressource template
                 "o:title": prenom + ' ' + nom,
                 "o:Item": "https://memoiresonore.univ-paris8.fr/onto/jdc#:Utilisateur",
                 "https://memoiresonore.univ-paris8.fr/onto/jdc#:nom": [ { "type": "literal", property_id: nom_property, "@value": nom } ],
                 "https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom": [ { "type": "literal", property_id: prenom_property, "@value": prenom } ],
                 "https://memoiresonore.univ-paris8.fr/onto/jdc#:email": [ { "type": "literal", property_id: email_property, "@value": email } ],
                 "https://memoiresonore.univ-paris8.fr/onto/jdc#:role": [ { "type": "literal", property_id: role_property, "@value": role } ],
-                "https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur": [ { "type": "literal", property_id: id_property, "@value": id } ]
+                "https://memoiresonore.univ-paris8.fr/onto/jdc#:id_utilisateur": [ { "type": "literal", property_id: id_property, "@value": id_user } ]
             };
 
             fetch(`${api_url}?key_identity=${identity}&key_credential=${credential}`, {
@@ -169,28 +200,13 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            })
-        
-                        
+            }).finally(() => {
+                // window.location.reload();
+                d3.selectAll('#userList tr').remove();
+                chargerTableauUtiisateurs(api_url, userList);
+                
+            });    
         }
-
-        // function abscent(e,d){
-        //     present(e,d,true);
-        // }
-
-        // function present(e,d,absc=false){
-        //     let data = [], titre = absc ? "Abscence" : "Présence";
-        //     data['o:resource_class']="dctype:Event";
-        //     //data['o:resource_template']='Présence';
-        //     data['dcterms:title'] = titre+' de '+d['o:title']+' à ' + new Date().toLocaleString();
-        //     //data['fup8:hasEC'] = 'langage du web';
-        //     //data['fup8:hasEtudiant'] = {'rid':d['o:id']};
-        //     data['dcterms:valid'] = new Date().toLocaleString();
-                        
-        //     a.omk.createItem(data,i=>{
-        //         d3.select('#resultCrea').text(JSON.stringify(i));
-        //     });
-        // }
 
     </script>
 </body>
