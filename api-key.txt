@@ -1,2 +1,5 @@
 key_identity=NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8
 key_credential=6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1
+
+
+openaikey = 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

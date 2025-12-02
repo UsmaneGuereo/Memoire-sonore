@@ -8,4 +8,9 @@ return [
             dirname(__DIR__) . '/view',
         ],
     ],
+    'controllers' => [
+        'invokables' => [
+            'SpeechToTextController\Controller\Index' => 'SpeechToTextController\Controller\IndexController',
+        ],
+    ],
 ];

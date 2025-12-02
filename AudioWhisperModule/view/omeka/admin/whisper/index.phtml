@@ -1,0 +1,8 @@
+<h1>Enregistrer et transcrire un audio</h1>
+<button id="startRecord">Démarrer l'enregistrement</button>
+<button id="stopRecord" disabled>Arrêter</button>
+<form id="transcribeForm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="audio_file" id="audioBlob">
+    <button type="submit">Transcrire</button>
+</form>
+<script src="<?= $this->assetUrl('js/whisper.js', 'WhisperTranscribe') ?>"></script>

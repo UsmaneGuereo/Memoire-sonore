@@ -1,0 +1,16 @@
+<div class="field">
+    <div class="field-meta">
+        <label for="api_url"><?php echo $this->translate("URL de l'API Whisper"); ?></label>
+        <div class="field-description">
+            <?php echo $this->translate('URL de notre api local Whisper'); ?><br>
+            <small><?php echo $this->translate("Default: http://localhost:5000"); ?></small><br>
+            <small><?php echo $this->translate("Lancer l'api whisper d'abord avant d'utiliser de la transcription"); ?></small>
+        </div>
+    </div>
+    <div class="inputs">
+        <input type="text" name="api_url" id="api_url" 
+               value="<?php echo $this->escapeHtml($apiUrl); ?>" 
+               placeholder="http://localhost:5000"
+               style="width: 100%;">
+    </div>
+</div>

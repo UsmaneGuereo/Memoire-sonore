@@ -135,7 +135,7 @@ btnTelecharger.addEventListener('click', async function () {
             }
 
             const mediaData = {
-                "o:item": { "o:id": id_audio },
+                "o:item": { "o:id": Number(id_audio) },
                 "o:ingester": "upload",
                 "file_index": 0,
                 "o:is_public": true
