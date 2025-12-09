@@ -1,10 +1,10 @@
 <div class="field">
     <div class="field-meta">
-        <label for="api_url"><?php echo $this->translate("URL de l'API Whisper"); ?></label>
+        <label for="api_url"><?php echo $this->translate('Whisper API URL'); ?></label>
         <div class="field-description">
-            <?php echo $this->translate('URL de notre api local Whisper'); ?><br>
-            <small><?php echo $this->translate("Default: http://localhost:5000"); ?></small><br>
-            <small><?php echo $this->translate("Lancer l'api whisper d'abord avant d'utiliser de la transcription"); ?></small>
+            <?php echo $this->translate('URL of your local Whisper API'); ?><br>
+            <small><?php echo $this->translate('Default: http://localhost:5000'); ?></small><br>
+            <small><?php echo $this->translate('Make sure the Whisper API is running before using transcription'); ?></small>
         </div>
     </div>
     <div class="inputs">
@@ -14,3 +14,55 @@
                style="width: 100%;">
     </div>
 </div>
+
+<div class="field">
+    <div class="field-meta">
+        <label><?php echo $this->translate('Test de connexion'); ?></label>
+        <div class="field-description">
+            <?php echo $this->translate('Vérifiez que votre API Whisper est accessible'); ?>
+        </div>
+    </div>
+    <div class="inputs">
+        <button type="button" id="testWhisperApi" class="button">
+            <?php echo $this->translate('Tester la connexion'); ?>
+        </button>
+        <div id="apiTestResult" style="margin-top: 10px;"></div>
+    </div>
+</div>
+
+<script>
+(function($) {
+    $('#testWhisperApi').on('click', function() {
+        const apiUrl = $('#api_url').val();
+        const $result = $('#apiTestResult');
+        const $button = $(this);
+        
+        if (!apiUrl) {
+            $result.html('<span style="color: red;">⚠️ Veuillez entrer une URL</span>');
+            return;
+        }
+        
+        $button.prop('disabled', true);
+        $result.html('<span style="color: blue;">⏳ Test en cours...</span>');
+        
+        $.ajax({
+            url: apiUrl + '/verification',
+            type: 'GET',
+            timeout: 5000,
+            success: function(response) {
+                if (response.status === 'ok') {
+                    $result.html('<span style="color: green;">✓ Connexion réussie! Modèle: ' + response.model + '</span>');
+                } else {
+                    $result.html('<span style="color: orange;">⚠️ API accessible mais réponse inattendue</span>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $result.html('<span style="color: red;">✗ Erreur de connexion: ' + error + '</span>');
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+})(jQuery);
+</script>

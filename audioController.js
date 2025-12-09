@@ -1,6 +1,7 @@
-const api_url = "http://localhost/omk_THyp_25-26_clone/api";
+const api_url = "http://localhost/omk_THyp_25-26_clone/api/";
 const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8";
 const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
+
 
 const btnDemarrer = document.getElementById('btn-demarrer');
 const btnStop = document.getElementById('btn-stop');
@@ -88,12 +89,13 @@ btnStop.addEventListener('click', function () {
 btnTelecharger.addEventListener('click', async function () {
     const id_audio = Math.floor(Math.random() * 200).toString();
     const id_temoignage = Math.floor(Math.random() * 200).toString();
-    const fichier = new File(audioChunks, 'enregistrement.wav', { type: 'audio/wav' });
+    // const fichier = new File(audioChunks, 'enregistrement.wav', { type: 'audio/wav' });
+    const fichier = new Blob(audioChunks, { type: 'audio/wav' });
     const chemin_fichier = fichier.name;
     const duree = formatTime(seconds);
     const formatFile = fichier.type;
 
-    const temp = await d3.json(`${api_url}/resource_templates`)
+    const temp = await d3.json(`${api_url}resource_templates`)
     .then(data => {
         return data.find(elt => elt['o:label'] === "Audio"); // Trouver le ressource template "Audio"
     });
@@ -121,7 +123,7 @@ btnTelecharger.addEventListener('click', async function () {
                 "dcterms:format": [{ "type": "literal", property_id: format_audio_property, "@value": formatFile }]
             };
 
-            const itemResponse = fetch(`${api_url}/items?key_identity=${identity}&key_credential=${credential}`, {
+            const itemResponse = await fetch(`${api_url}items?key_identity=${identity}&key_credential=${credential}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -134,27 +136,35 @@ btnTelecharger.addEventListener('click', async function () {
                 throw new Error(`Erreur création item: ${(await itemResponse).status}`);
             }
 
+            // const mediaData = {
+            //     "o:item": { "o:id": Number(id_audio) },
+            //     "o:ingester": "upload",
+            //     "file_index": 0,
+            //     "o:is_public": true
+            // };
+
             const mediaData = {
-                "o:item": { "o:id": Number(id_audio) },
+                "o:item": {"o:id": Number(id_audio)},
                 "o:ingester": "upload",
                 "file_index": 0,
                 "o:is_public": true
             };
 
             const formData = new FormData();
-            formData.append('data', JSON.stringify(mediaData));
             formData.append('file[0]', fichier);
+            formData.append('data', JSON.stringify(mediaData));
 
-            const mediaResponse = fetch(`${api_url}/media?key_identity=${identity}&key_credential=${credential}`, {
+            const mediaResponse = await fetch(`${api_url}media?key_identity=${identity}&key_credential=${credential}`, {
                 method: 'POST',
                 body: formData
             });
 
             console.log((await mediaResponse).Error)
+            console.log(mediaResponse)
 
-            // if (!mediaResponse.ok) {
-            //     throw new Error(`Erreur téléchargement de fichier: ${mediaResponse.status}`);
-            // }
+            if (!mediaResponse.ok) {
+                throw new Error(`Erreur téléchargement de fichier: ${mediaResponse.status}`);
+            }
 
     } catch (error) {
         console.log(error)

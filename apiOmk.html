@@ -16,6 +16,7 @@
         </div>
     </header>
     <main>
+
         <div class="container py-1">
             <div class="row">
                 <!-- Formulaire d'ajout d'utilisateur -->
@@ -82,10 +83,10 @@
             </div>
         </div>
 
-        <div class="container" >
+        <div class="container">
             <div class="card mt-5">
                 <div class="card-header bg-dark text-white">
-                    <h3 class="mb-0">Enregistreur Audio</h3>
+                    <h3 class="mb-0">Enregistreur et ajouter un Audio dans Omeka-s</h3>
                 </div>
                 <div class="card-body">
 
@@ -110,9 +111,7 @@
                         <h5>Enregistrement :</h5>
                         <audio id="audio-player" controls class="w-100 mt-3"></audio>
                         <div class="mt-2">
-                            <!-- <a id="btn-telecharger" class="btn btn-primary btn-sm" download="enregistrement.wav">
-                                Télécharger
-                            </a> -->
+
                             <button id="btn-telecharger" class="btn btn-primary btn-sm" download="enregistrement.wav">
                                 Télécharger
                             </button>
@@ -128,6 +127,36 @@
                 <strong>Erreur !</strong> <span id="message-erreur"></span>
             </div>
         </div>
+
+
+        <div class="container">
+            <div class="card mt-5">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Enregistreur et transcrire l'audio avec whisper</h3>
+                </div>
+                <div class="card-body">
+
+                    <a href="http://localhost/omk_THyp_25-26_clone/admin/audio-transcription" target="_blank">
+                       Vous pouvez aussi tiliser ce lien pour accéder au module Audio-Transcription
+                    </a>
+                    <br/>
+                    <br/>
+
+                    <iframe src="http://localhost/omk_THyp_25-26_clone/admin/audio-transcription" width="100%"
+                        height="600" frameborder="0"
+                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation">
+                    </iframe>
+                    
+
+                    
+                </div>
+            </div>
+
+            <div class="alert alert-danger mt-3 d-none" id="alert-erreur">
+                <strong>Erreur !</strong> <span id="message-erreur"></span>
+            </div>
+        </div>
+
     </main>
     <footer class="d-flex align-items-center justify-content-center py-3">
         <p class="mb-0">&copy; 2025 Présences THYP</p>
@@ -136,7 +165,9 @@
     <script src="audioController.js"></script>
     <script type="module">
 
+
         const api_url = "http://localhost/omk_THyp_25-26_clone/api/items";
+        const api_url_media = "http://localhost/omk_THyp_25-26_clone/api/media";
         const identity = "NDfWQB6jwVQEyR5jKS5njoP2K3IHmQm8";
         const credential = "6Wib53Kon9CcKzHeliWapZ9ad9rb9JK1";
         const userList = d3.select('#userList');
@@ -148,7 +179,8 @@
 
                 if (data.length > 0) {
                     data.forEach(user => {
-                        if(user['@type'][1] === 'https://memoiresonore.univ-paris8.fr/onto/jdc#:Utilisateur') {
+
+                        if (user['@type'][1] === 'https://memoiresonore.univ-paris8.fr/onto/jdc#:Utilisateur') {
                             let prenom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:prenom'][0]['@value'] : '';
                             let nom = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:nom'][0]['@value'] : '';
                             let email = user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'] ? user['https://memoiresonore.univ-paris8.fr/onto/jdc#:email'][0]['@value'] : '';

@@ -63,7 +63,6 @@ class IndexController extends AbstractActionController
 
             $transcriptionService = new TranscriptionService($apiKey);
             $result = $transcriptionService->transcribe($tmpPath);
-            
             // $transcriptionService = new TranscriptionService($apiKey);
             // $result = $transcriptionService->transcribe($tmpPath);
 
@@ -74,6 +73,7 @@ class IndexController extends AbstractActionController
                 $filename,
                 $result['text']
             ]);
+            
 
             return new JsonModel([
                 'status' => 'success',

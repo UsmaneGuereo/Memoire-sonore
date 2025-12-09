@@ -123,7 +123,7 @@ $this->headTitle($this->translate('Audio Transcription'));
 </style>
 
 <div class="audio-container">
-    <h1><?php echo $this->translate('🎤 Audio Transcription'); ?></h1>
+    <h1><?php echo $this->translate('Transcription Audio'); ?></h1>
     
     <div id="status"></div>
     <div id="timer" class="timer">00:00</div>
@@ -136,14 +136,14 @@ $this->headTitle($this->translate('Audio Transcription'));
             <?php echo $this->translate('Arreter'); ?>
         </button>
         <button id="transcribeBtn" class="btn btn-transcribe" disabled>
-            <?php echo $this->translate('Transcrire'); ?>
+            <?php echo $this->translate('Transcrire Audio'); ?>
         </button>
     </div>
     
     <audio id="audioPlayback" controls></audio>
     
     <div id="transcriptionResult">
-        <h3><?php echo $this->translate('📝 Transcription:'); ?></h3>
+        <h3><?php echo $this->translate('Transcription:'); ?></h3>
         <div id="transcriptionText"></div>
     </div>
 </div>
@@ -215,7 +215,7 @@ $this->headTitle($this->translate('Audio Transcription'));
             recordingInterval = setInterval(updateTimer, 1000);
 
         } catch (err) {
-            showStatus('Error accessing microphone: ' + err.message, 'error');
+            showStatus('Erreur access microphone: ' + err.message, 'error');
         }
     });
 
@@ -224,56 +224,38 @@ $this->headTitle($this->translate('Audio Transcription'));
         mediaRecorder.stream.getTracks().forEach(track => track.stop());
         recordBtn.disabled = false;
         stopBtn.disabled = true;
-        showStatus('Enregistré. Clique sur "Transcrire" pour voire le texte.', 'success');
+        showStatus('Recording stopped. Click "Transcribe Audio" to get the text.', 'success');
     });
 
     transcribeBtn.addEventListener('click', async () => {
-        showStatus('Transcrition en cours... ça peut prendre du temps.', 'processing');
+        showStatus('Transcription en cours... Peut prendre un moment.', 'processing');
         transcribeBtn.disabled = true;
 
         const formData = new FormData();
         formData.append('audio', audioBlob, 'recording.wav');
 
         try {
-            const response = await fetch('<?php echo $this->url('admin/audio-transcription/transcribe'); ?>', {
+            const response = await fetch('<?php echo ('http://localhost:5000/transcribe'); ?>', {
                 method: 'POST',
                 body: formData
             });
 
-            let dataRes = await response.json();
-            console.log(response);
-
 
             // Vérifier d'abord si la réponse est OK
-            // if (!response.ok) {
-            //     throw new Error(`HTTP error! status: ${response.status}`);
-            // }
-            if (!dataRes.status === "success") {
-                throw new Error(`HTTP error! status: ${dataRes.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Obtenir le texte brut de la réponse
-            // const responseText = await response.text();
-            // const responseText = dataRes.text;
-            // console.log('Raw response:', responseText);
+            // Obtenir le texte la réponse en format json
+            const responseText = await response.json();
 
-            // Essayer de parser le JSON
-            // let data;
-            // try {
-            //     data = JSON.parse(responseText);
-            // } catch (parseError) {
-            //     console.error('JSON parse error:', parseError);
-            //     console.error('Response text:', responseText);
-            //     throw new Error('Server returned invalid JSON. Check browser console for details.');
-            // }
-
-            if (dataRes.status === 'success') {
-                transcriptionText.textContent = dataRes.transcription;
+            if (responseText.status === 'success') {
+                transcriptionText.textContent = responseText.text;
                 transcriptionResult.style.display = 'block';
                 showStatus('Transcription effectué avec succés !', 'success');
             } else {
-                showStatus('Error: ' + dataRes.message, 'error');
-                console.error('Error details:', dataRes);
+                showStatus('Error: ' + responseText.message, 'error');
+                console.error('Error details:', responseText);
                 transcribeBtn.disabled = false;
             }
         } catch (err) {

@@ -1,11 +1,3 @@
-"""
-Pour executer ce projet, il faut installer les dependances necessaires avec la commande suivante
-
-pip install fastapi uvicorn openai-whisper python-multipart
-
-"""
-
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import whisper
@@ -34,7 +26,7 @@ def health():
     """Endpoint pour vérifier que l'API fonctionne"""
     return jsonify({
         'status': 'ok',
-        'model': 'whisper-base'
+        'model': 'whisper'
     })
 
 @app.route('/transcribe', methods=['POST'])
